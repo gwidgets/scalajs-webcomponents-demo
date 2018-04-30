@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-hi-ce.js"></script>
+    <script type="text/javascript" src="./target/scala-2.12/simple-scalajs-app-fastopt.js"></script>
+</head>
+
+<style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+</style>
+
+<body>
+
+<app-element>
+    <header-bar slot="header-bar"></header-bar>
+<side-nav slot="side-nav"></side-nav>
+<main-area slot="main-area">
+    <add-section></add-section>
+    <list-section></list-section>
+    <delete-section></delete-section>
+</main-area>
+</app-element>
+
+<template id="app-element-template">
+    <slot name="header-bar"></slot>
+    <slot name="side-nav"></slot>
+    <slot name="main-area"></slot>
+</template>
+
+<template id="side-nav-template">
+        <style>
+        :host {
+         font-family: "Lato", sans-serif;
+        }
+
+    .sidenav {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .sidenav a {
+        padding: 6px 6px 6px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .main {
+        margin-left: 200px; /* Same as the width of the sidenav */
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+    </style>
+    <div class="sidenav">
+
+    </div>
+</template>
+
+<template id="main-area-template">
+    <style>
+main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+}
+</style>
+    <main>
+        <slot></slot>
+    </main>
+</template>
+
+<template id="main-area-section-template">
+    <style>
+        .container {
+        display: flex;
+        width: 40%;
+        flex-direction: column;
+        margin: auto;
+        padding-top: 15%;
+         }
+         tr:nth-child(even) {background-color: #f2f2f2;}
+         th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .action-button {
+         width: 100px;
+         margin: auto;
+        }
+        .data-table {
+         border-collapse: collapse
+        }
+    </style>
+    <section>
+         <div class="container">
+
+         </div>
+
+    </section>
+</template>
+
+<template id="header-bar-template">
+    <style>
+        .header-bar {
+        background-color: #353a28;
+        width: 100%;
+        height: 100px;
+         }
+    </style>
+        <div class="header-bar">
+             <span style="color:white; margin: auto"> Web components in Scala.js</span>
+        </div>
+</template>
+
+</body>
+</html>
