@@ -3,13 +3,12 @@ package elements
 import org.scalajs.dom
 import org.scalajs.dom.raw.Event
 import wrappers.{HTMLElement, HTMLTemplateElement}
-import scala.scalajs.js.JSON
+import scalajs.js.Dynamic.literal
 
 class AppElement extends HTMLElement {
   var template: HTMLTemplateElement = dom.document.getElementById("app-element-template").asInstanceOf[HTMLTemplateElement]
-  var shadow = this.attachShadow(JSON.parse("{\"mode\": \"open\"}"));
-  shadow.appendChild(template.content.cloneNode(true));
-
+  var shadow = this.attachShadow(literal(mode = "open"))
+  shadow.appendChild(template.content.cloneNode(true))
 
   def connectedCallback(): Unit = {
     initRouter()
