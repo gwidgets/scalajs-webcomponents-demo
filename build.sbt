@@ -27,6 +27,10 @@ libraryDependencies ++= Seq(
   "io.circe" %%% "circe-parser"
 ).map(_ % circeVersion)
 
+libraryDependencies ++= Seq(
+  "com.lihaoyi"       %%% "scalatags" % "0.6.7"
+)
+
 scalaJSLinkerConfig ~= { _.withOutputMode(OutputMode.ECMAScript2015) }
 
 mainClass in Compile := Some("example.Main")

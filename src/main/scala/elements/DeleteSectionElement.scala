@@ -2,7 +2,7 @@ package elements
 
 import org.scalajs.dom
 import org.scalajs.dom.raw._
-
+import scalatags.JsDom.short._
 class DeleteSectionElement extends ListSectionElement {
 
   setName("Delete")
@@ -16,24 +16,20 @@ class DeleteSectionElement extends ListSectionElement {
     val rows = dataTable.querySelectorAll("tr")
 
     val headerRow = dataTable.querySelector("thead > tr").asInstanceOf[HTMLTableRowElement]
-    val emptyHeaderCell = dom.document.createElement("th")
+    val emptyHeaderCell = th().render
     headerRow.insertBefore(emptyHeaderCell, headerRow.firstChild)
 
     for (i <- 1 until rows.length) {
       val row = rows.item(i)
-      val deleteCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
-      val deleteCheckBox = dom.document.createElement("input").asInstanceOf[HTMLInputElement]
-      deleteCheckBox.`type` = "checkbox"
-      deleteCheckBox.id = row.firstChild.textContent
-      deleteCell.appendChild(deleteCheckBox)
+
+      val deleteCell = td(
+        input(*.tpe := "checkbox", *.id := row.firstChild.textContent).render
+      ).render
+
       row.insertBefore(deleteCell, row.firstChild)
     }
 
-    val deleteButton = dom.document.createElement("button").asInstanceOf[HTMLButtonElement]
-    deleteButton.textContent = "Delete selection"
-    deleteButton.classList.add("action-button")
-
-    deleteButton.addEventListener("click", (event: Event) => {
+    val deleteButton = button( "Delete selection", *.cls:="action-button", *.onclick := { () =>
       val rows = dataTable.querySelectorAll("tr")
       for (i <- 1 until rows.length) {
         val row = rows.item(i)
@@ -43,7 +39,7 @@ class DeleteSectionElement extends ListSectionElement {
         }
       }
       dom.document.dispatchEvent(new wrappers.Event("deleteExpense"))
-    })
+    }).render
 
     getContainer().appendChild(deleteButton)
   }

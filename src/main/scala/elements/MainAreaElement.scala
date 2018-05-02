@@ -5,12 +5,13 @@ import org.scalajs.dom.raw.{Event, NodeList}
 import wrappers.{HTMLElement, HTMLTemplateElement}
 
 import scala.scalajs.js.JSON
+import scalajs.js.Dynamic.literal
 
 class MainAreaElement extends HTMLElement {
 
   var template: HTMLTemplateElement = dom.document.getElementById("main-area-template").asInstanceOf[HTMLTemplateElement]
-  var shadow = this.attachShadow(JSON.parse("{\"mode\": \"open\"}"));
-  shadow.appendChild(template.content.cloneNode(true));
+  var shadow = this.attachShadow(literal(mode = "open"))
+  shadow.appendChild(template.content.cloneNode(true))
 
   def connectedCallback(): Unit = {
     dom.document.addEventListener("addExpense", (event: Event) => {
@@ -29,7 +30,7 @@ class MainAreaElement extends HTMLElement {
     val sections = getAllSections()
 
     for (i <- 0 until sections.length) {
-      val section = sections.item(i).asInstanceOf[MainAreaSectionElement];
+      val section = sections.item(i).asInstanceOf[MainAreaSectionElement]
       if (section.getName().equalsIgnoreCase(name)) {
         section.style.display = ""
         section.setAttribute("selected", "")

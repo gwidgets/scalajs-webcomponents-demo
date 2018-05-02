@@ -1,21 +1,51 @@
 package elements
 
-import org.scalajs.dom
 import org.scalajs.dom.Element
+import org.scalajs.dom.html.Div
+import org.scalajs.dom.raw.HTMLStyleElement
 import wrappers.{HTMLElement, HTMLTemplateElement}
 
-import scala.scalajs.js.JSON
+import scala.scalajs.js.Dynamic.literal
+import scalatags.JsDom.short._
+
+object TemplateTags {
+  val template = typedTag[HTMLTemplateElement]("template")
+  val sstyle = typedTag[HTMLStyleElement]("style")
+}
 
 abstract class MainAreaSectionElement extends HTMLElement {
+  import TemplateTags._
 
-  var template: HTMLTemplateElement = dom.document.getElementById("main-area-section-template").asInstanceOf[HTMLTemplateElement]
-  var shadow = this.attachShadow(JSON.parse("{\"mode\": \"open\"}"))
-  shadow.appendChild(template.content.cloneNode(true))
+  var shadow = this.attachShadow(literal(mode = "open"))
 
+  private val container: Div = div(*.cls := "container").render
 
-  def getContainer(): Element = {
-    return this.shadow.querySelector(".container")
-  }
+  shadow.appendChild(sstyle(
+    """.container {
+        display: flex;
+        width: 40%;
+        flex-direction: column;
+        margin: auto;
+        padding-top: 15%;
+         }
+         tr:nth-child(even) {background-color: #f2f2f2;}
+         th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .action-button {
+         width: 100px;
+         margin: auto;
+        }
+        .data-table {
+         border-collapse: collapse
+        }"""
+  ).render)
+
+  shadow.appendChild(container)
+
+  def getContainer(): Element = container
+
 
   def setName(name: String): Unit = {
     this.setAttribute("name", name)
