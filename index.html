@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>App</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-hi-ce.js"></script>
     <script type="text/javascript" src="./target/scala-2.12/simple-scalajs-app-fastopt.js"></script>
 </head>
 
@@ -120,13 +119,22 @@ main {
 <template id="header-bar-template">
     <style>
         .header-bar {
-        background-color: #353a28;
-        width: 100%;
-        height: 100px;
+            background-color: #353a28;
+            width: 100%;
+            height: 100px;
+         }
+         .header-title {
+             color:white;
+             margin: auto;
+             display: block;
+             width: 400px;
+             font-family: Helvetica;
+             font-size: x-large;
+             padding-top: 20px
          }
     </style>
         <div class="header-bar">
-             <span style="color:white; margin: auto"> Web components in Scala.js</span>
+             <span class="header-title"> Web components in Scala.js</span>
         </div>
 </template>
 
