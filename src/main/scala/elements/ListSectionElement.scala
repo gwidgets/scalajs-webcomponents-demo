@@ -9,14 +9,11 @@ import io.circe.parser.decode
 
 class ListSectionElement extends MainAreaSectionElement {
 
-  var name = "List";
-
-  var dataTable = dom.document.createElement("table").asInstanceOf[HTMLTableElement]
+  var dataTable: HTMLTableElement = null;
   implicit val expenseDecoder: Decoder[Expense] = deriveDecoder[Expense]
   setName("List")
 
-  def connectedCallback(): Unit  = {
-
+  def connectedCallback(): Unit = {
     renderTable()
   }
 
@@ -34,7 +31,7 @@ class ListSectionElement extends MainAreaSectionElement {
     val reasonHeaderCell = dom.document.createElement("th").asInstanceOf[HTMLElement]
     reasonHeaderCell.textContent = "reason"
 
-    var tableHeaderRow = dom.document.createElement("tr").asInstanceOf[HTMLTableRowElement]
+    val tableHeaderRow = dom.document.createElement("tr").asInstanceOf[HTMLTableRowElement]
 
     tableHeaderRow.appendChild(idHeaderCell)
     tableHeaderRow.appendChild(amountHeaderCell)
@@ -44,32 +41,27 @@ class ListSectionElement extends MainAreaSectionElement {
     tableHeader.appendChild(tableHeaderRow)
     dataTable.appendChild(tableHeader)
 
-    for (i <- 0 until dom.window.localStorage.length ) {
+    for (i <- 0 until dom.window.localStorage.length) {
       val key = dom.window.localStorage.key(i)
       val expenseJsonOption = Option(dom.window.localStorage.getItem(key))
       if (expenseJsonOption.isDefined) {
-      val expense = decode[Expense](expenseJsonOption.get).toSeq.last
-          val row = dom.document.createElement("tr").asInstanceOf[HTMLTableRowElement]
-
-          val idCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
-          idCell.textContent = expense.id
-          val amountCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
-          amountCell.textContent = expense.amount
-          val dateCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
-          dateCell.textContent = expense.date
-          val reasonCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
-          reasonCell.textContent = expense.reason
-
-          row.appendChild(idCell)
-          row.appendChild(amountCell)
-          row.appendChild(dateCell)
-          row.appendChild(reasonCell)
-
-          dataTable.appendChild(row)
+        val expense = decode[Expense](expenseJsonOption.get).toSeq.last
+        val row = dom.document.createElement("tr").asInstanceOf[HTMLTableRowElement]
+        val idCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
+        idCell.textContent = expense.id
+        val amountCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
+        amountCell.textContent = expense.amount
+        val dateCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
+        dateCell.textContent = expense.date
+        val reasonCell = dom.document.createElement("td").asInstanceOf[HTMLTableDataCellElement]
+        reasonCell.textContent = expense.reason
+        row.appendChild(idCell)
+        row.appendChild(amountCell)
+        row.appendChild(dateCell)
+        row.appendChild(reasonCell)
+        dataTable.appendChild(row)
       }
-
     }
-
     getContainer().appendChild(dataTable)
   }
 
@@ -77,6 +69,4 @@ class ListSectionElement extends MainAreaSectionElement {
     clear()
     renderTable()
   }
-
-
 }

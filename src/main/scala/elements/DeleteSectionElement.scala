@@ -7,8 +7,8 @@ class DeleteSectionElement extends ListSectionElement {
 
   setName("Delete")
 
-  override def connectedCallback(): Unit  = {
-       this.renderTable()
+  override def connectedCallback(): Unit = {
+    this.renderTable()
   }
 
   override def renderTable(): Unit = {
@@ -33,7 +33,7 @@ class DeleteSectionElement extends ListSectionElement {
     deleteButton.textContent = "Delete selection"
     deleteButton.classList.add("action-button")
 
-    deleteButton.addEventListener("click", (event:Event) => {
+    deleteButton.addEventListener("click", (event: Event) => {
       val rows = dataTable.querySelectorAll("tr")
       for (i <- 1 until rows.length) {
         val row = rows.item(i)

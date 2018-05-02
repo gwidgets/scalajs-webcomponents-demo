@@ -12,9 +12,7 @@ class MainAreaElement extends HTMLElement {
   var shadow = this.attachShadow(JSON.parse("{\"mode\": \"open\"}"));
   shadow.appendChild(template.content.cloneNode(true));
 
-  def connectedCallback(): Unit  = {
-    println("main area connected")
-
+  def connectedCallback(): Unit = {
     dom.document.addEventListener("addExpense", (event: Event) => {
       getListSection().refreshUI()
       getDeleteSection().refreshUI()
@@ -28,26 +26,26 @@ class MainAreaElement extends HTMLElement {
 
 
   def select(name: String): Unit = {
-    val sections  = getAllSections()
+    val sections = getAllSections()
 
     for (i <- 0 until sections.length) {
-        val section = sections.item(i).asInstanceOf[MainAreaSectionElement];
-       if (section.getName().equalsIgnoreCase(name)) {
-         section.style.display = ""
-         section.setAttribute("selected", "")
-       } else {
-         section.style.display = "none"
-         section.removeAttribute("selected")
-       }
+      val section = sections.item(i).asInstanceOf[MainAreaSectionElement];
+      if (section.getName().equalsIgnoreCase(name)) {
+        section.style.display = ""
+        section.setAttribute("selected", "")
+      } else {
+        section.style.display = "none"
+        section.removeAttribute("selected")
+      }
     }
   }
 
   def selectFirst(): Unit = {
     val sections = getAllSections()
-     val first = Option(sections.item(0).asInstanceOf[HTMLElement])
-     if (first.isDefined) {
-       first.get.style.display = ""
-     }
+    val first = Option(sections.item(0).asInstanceOf[HTMLElement])
+    if (first.isDefined) {
+      first.get.style.display = ""
+    }
 
     for (i <- 1 until sections.length) {
       val section = sections.item(i).asInstanceOf[HTMLElement]

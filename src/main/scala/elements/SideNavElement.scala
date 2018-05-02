@@ -18,5 +18,4 @@ class SideNavElement extends HTMLElement{
     link.href= "#"+title.toLowerCase
      this.shadow.querySelector(".sidenav").appendChild(link)
   }
-
 }

@@ -19,7 +19,6 @@ enablePlugins(ScalaJSPlugin)
 scalaJSUseMainModuleInitializer := true
 
 libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.5"
-libraryDependencies += "com.lihaoyi" %%% "upickle" % "0.6.5"
 val circeVersion = "0.9.3"
 
 libraryDependencies ++= Seq(
@@ -27,11 +26,6 @@ libraryDependencies ++= Seq(
   "io.circe" %%% "circe-generic",
   "io.circe" %%% "circe-parser"
 ).map(_ % circeVersion)
-
-
-addCompilerPlugin(
-  "org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full
-)
 
 scalaJSLinkerConfig ~= { _.withOutputMode(OutputMode.ECMAScript2015) }
 

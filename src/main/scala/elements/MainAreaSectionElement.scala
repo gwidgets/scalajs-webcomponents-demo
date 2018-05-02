@@ -27,7 +27,7 @@ abstract class MainAreaSectionElement extends HTMLElement {
 
   def clear(): Unit = {
     var firstChild = getContainer().firstChild
-    while(firstChild != null) {
+    while (firstChild != null) {
       getContainer().removeChild(firstChild)
       firstChild = getContainer().firstChild
     }

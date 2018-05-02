@@ -13,7 +13,6 @@ object Main {
     val window = js.Dynamic.global.window.asInstanceOf[Window]
 
     window.document.addEventListener("DOMContentLoaded", (event: Event) => {
-
       window.customElements.define("add-section", js.constructorOf[AddSectionElement])
       window.customElements.define("list-section", js.constructorOf[ListSectionElement])
       window.customElements.define("delete-section", js.constructorOf[DeleteSectionElement])

@@ -13,11 +13,8 @@ class AppElement extends HTMLElement {
   shadow.appendChild(template.content.cloneNode(true));
 
 
-  def connectedCallback(): Unit  = {
-      println("connected")
-      initRouter()
-
-
+  def connectedCallback(): Unit = {
+    initRouter()
     var sections = getMainArea().getAllSections()
 
     for (i <- 0 until sections.length) {
@@ -38,7 +35,7 @@ class AppElement extends HTMLElement {
 
   def initRouter(): Unit = {
 
-    dom.window.addEventListener("hashchange", (event: Event)  => {
+    dom.window.addEventListener("hashchange", (event: Event) => {
 
       val hash = dom.window.location.hash.replace("#", "")
       getMainArea().select(hash)
@@ -48,7 +45,7 @@ class AppElement extends HTMLElement {
 
   def updateUI(): Unit = {
     val hash = dom.window.location.hash.replace("#", "")
-    if ( !hash.isEmpty) {
+    if (!hash.isEmpty) {
       getMainArea().select(hash)
     } else {
       getMainArea().selectFirst()

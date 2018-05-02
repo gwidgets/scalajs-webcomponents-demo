@@ -11,7 +11,7 @@ class AddSectionElement extends MainAreaSectionElement {
 
   setName("Add")
 
-  def connectedCallback(): Unit  = {
+  def connectedCallback(): Unit = {
 
 
     val amountInput = dom.document.createElement("input").asInstanceOf[HTMLInputElement]
@@ -39,9 +39,9 @@ class AddSectionElement extends MainAreaSectionElement {
 
     submitButton.addEventListener("click", (event: Event) => {
       val id = UUID.randomUUID().toString
-       val expense = new Expense(id, getExpenseAmount(), getExpenseDate(), getExpenseReason())
-     var expenseAsJson = expense.asJson
-    println(expenseAsJson)
+      val expense = new Expense(id, getExpenseAmount(), getExpenseDate(), getExpenseReason())
+      var expenseAsJson = expense.asJson
+      println(expenseAsJson)
       dom.window.localStorage.setItem(expense.id, expenseAsJson.toString())
       dom.document.dispatchEvent(new wrappers.Event("addExpense"))
     })
@@ -57,11 +57,11 @@ class AddSectionElement extends MainAreaSectionElement {
   }
 
   def getExpenseAmount(): String = {
-  this.getContainer().querySelector("#amountInput").asInstanceOf[HTMLInputElement].value
+    this.getContainer().querySelector("#amountInput").asInstanceOf[HTMLInputElement].value
   }
 
   def getExpenseDate(): String = {
-   this.getContainer().querySelector("#dateInput").asInstanceOf[HTMLInputElement].value
+    this.getContainer().querySelector("#dateInput").asInstanceOf[HTMLInputElement].value
   }
 
   def getExpenseReason(): String = {

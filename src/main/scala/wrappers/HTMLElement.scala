@@ -8,7 +8,6 @@ import scala.scalajs.js.annotation.JSGlobal
 @JSGlobal
 class HTMLElement extends org.scalajs.dom.raw.HTMLElement {
 
-
    def attachShadow(options: js.Any) : org.scalajs.dom.raw.HTMLElement = js.native
 
 }
