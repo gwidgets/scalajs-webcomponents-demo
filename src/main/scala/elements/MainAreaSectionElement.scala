@@ -1,50 +1,24 @@
 package elements
 
+import org.scalajs.dom
 import org.scalajs.dom.Element
-import org.scalajs.dom.html.Div
-import org.scalajs.dom.raw.HTMLStyleElement
 import wrappers.{HTMLElement, HTMLTemplateElement}
 
 import scala.scalajs.js.Dynamic.literal
-import scalatags.JsDom.short._
 
-object TemplateTags {
-  val template = typedTag[HTMLTemplateElement]("template")
-  val sstyle = typedTag[HTMLStyleElement]("style")
+object MainAreaSectionElement {
+  val template: HTMLTemplateElement =
+    dom.document.getElementById("main-area-section-template").asInstanceOf[HTMLTemplateElement]
 }
 
 abstract class MainAreaSectionElement extends HTMLElement {
-  import TemplateTags._
-
   var shadow = this.attachShadow(literal(mode = "open"))
 
-  private val container: Div = div(*.cls := "container").render
+  shadow.appendChild(
+    MainAreaSectionElement.template.content.cloneNode(true)
+  )
 
-  shadow.appendChild(sstyle(
-    """.container {
-        display: flex;
-        width: 40%;
-        flex-direction: column;
-        margin: auto;
-        padding-top: 15%;
-         }
-         tr:nth-child(even) {background-color: #f2f2f2;}
-         th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .action-button {
-         width: 100px;
-         margin: auto;
-        }
-        .data-table {
-         border-collapse: collapse
-        }"""
-  ).render)
-
-  shadow.appendChild(container)
-
-  def getContainer(): Element = container
+  val content: Element = this.shadow.querySelector(".container")
 
 
   def setName(name: String): Unit = {
@@ -56,10 +30,10 @@ abstract class MainAreaSectionElement extends HTMLElement {
   }
 
   def clear(): Unit = {
-    var firstChild = getContainer().firstChild
+    var firstChild = content.firstChild
     while (firstChild != null) {
-      getContainer().removeChild(firstChild)
-      firstChild = getContainer().firstChild
+      content.removeChild(firstChild)
+      firstChild = content.firstChild
     }
   }
 

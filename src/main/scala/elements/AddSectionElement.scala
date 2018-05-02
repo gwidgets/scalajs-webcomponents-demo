@@ -10,8 +10,8 @@ import io.circe.syntax._
 import scalatags.JsDom.short._
 
 class AddSectionElement extends MainAreaSectionElement {
-
   setName("Add")
+
   val amountInput = input(*.tpe := "number", *.id := "amountInput").render
   val dateInput = input(*.tpe := "date", *.id := "dateInput").render
   val reasonInput = textarea(*.id := "reasonInput").render
@@ -23,19 +23,18 @@ class AddSectionElement extends MainAreaSectionElement {
     *.onclick := { () =>
       val id = UUID.randomUUID().toString
       val expense = new Expense(id, getExpenseAmount(), getExpenseDate(), getExpenseReason())
-      var expenseAsJson = expense.asJson
+      val expenseAsJson = expense.asJson
       println(expenseAsJson)
       dom.window.localStorage.setItem(expense.id, expenseAsJson.toString())
       dom.document.dispatchEvent(new wrappers.Event("addExpense"))
     }
   ).render
 
-  def connectedCallback(): Unit = {
-    Seq(
-      amountLabel, amountInput, dateLabel, dateInput,
-      reasonLabel, reasonInput, submitButton
-    ).applyTo(getContainer())
-  }
+  def connectedCallback(): Unit = Seq(
+    amountLabel, amountInput, dateLabel, dateInput,
+    reasonLabel, reasonInput, submitButton
+  ).applyTo(content)
+
 
   def getExpenseAmount(): String = amountInput.value
   def getExpenseDate(): String = dateInput.value

@@ -15,17 +15,19 @@ class ListSectionElement extends MainAreaSectionElement {
     renderTable()
   }
 
-  def renderTable(): Unit = {
-    val data = (0 until dom.window.localStorage.length).map { i =>
+  def readFromDB() = {
+    (0 until dom.window.localStorage.length).map { i =>
       val key = dom.window.localStorage.key(i)
       Option(dom.window.localStorage.getItem(key))
     }.collect {
       case Some(e) => decode[Expense](e).toSeq.last
     }
+  }
 
+  def renderTable(): Unit = {
     dataTable = table(*.cls := "data-table",
       thead(tr(th("id"), th("amount"), th("date"), th("reason"))),
-      data.map { expense =>
+      readFromDB().map { expense =>
         tr(
           td(expense.id),
           td(expense.amount),
@@ -35,7 +37,7 @@ class ListSectionElement extends MainAreaSectionElement {
       }
     ).render
 
-    getContainer().appendChild(dataTable)
+    content.appendChild(dataTable)
   }
 
   def refreshUI(): Unit = {

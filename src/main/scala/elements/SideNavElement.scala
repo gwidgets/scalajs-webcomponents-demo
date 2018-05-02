@@ -4,13 +4,17 @@ import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLAnchorElement
 import wrappers.{HTMLElement, HTMLTemplateElement}
 
-import scala.scalajs.js.JSON
+import scalajs.js.Dynamic.literal
+
+object SideNavElement {
+  val template: HTMLTemplateElement =
+    dom.document.getElementById("side-nav-template").asInstanceOf[HTMLTemplateElement]
+}
 
 class SideNavElement extends HTMLElement{
+  var shadow = this.attachShadow(literal(mode = "open"))
 
-  var template: HTMLTemplateElement = dom.document.getElementById("side-nav-template").asInstanceOf[HTMLTemplateElement]
-  var shadow = this.attachShadow(JSON.parse("{\"mode\": \"open\"}"))
-  shadow.appendChild(template.content.cloneNode(true))
+  shadow.appendChild(SideNavElement.template.content.cloneNode(true))
 
   def addLink(title: String) : Unit = {
     val link: HTMLAnchorElement = dom.document.createElement("a").asInstanceOf[HTMLAnchorElement]

@@ -41,7 +41,7 @@ class DeleteSectionElement extends ListSectionElement {
       dom.document.dispatchEvent(new wrappers.Event("deleteExpense"))
     }).render
 
-    getContainer().appendChild(deleteButton)
+    content.appendChild(deleteButton)
   }
 
   override def refreshUI(): Unit = {
