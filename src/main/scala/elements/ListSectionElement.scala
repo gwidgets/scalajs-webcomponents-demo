@@ -1,7 +1,5 @@
 package elements
 
-import io.circe.Decoder
-import io.circe.generic.semiauto.deriveDecoder
 import model.Expense
 import org.scalajs.dom
 import org.scalajs.dom.raw._
@@ -10,7 +8,6 @@ import io.circe.parser.decode
 class ListSectionElement extends MainAreaSectionElement {
 
   var dataTable: HTMLTableElement = null;
-  implicit val expenseDecoder: Decoder[Expense] = deriveDecoder[Expense]
   setName("List")
 
   def connectedCallback(): Unit = {
