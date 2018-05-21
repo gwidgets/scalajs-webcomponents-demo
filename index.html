@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-loader.js"></script>
     <script type="text/javascript" src="./target/scala-2.12/simple-scalajs-app-fastopt.js"></script>
 </head>
 
@@ -15,15 +16,6 @@
 
 <body>
 
-<app-element>
-    <header-bar slot="header-bar"></header-bar>
-<side-nav slot="side-nav"></side-nav>
-<main-area slot="main-area">
-    <add-section></add-section>
-    <list-section></list-section>
-    <delete-section></delete-section>
-</main-area>
-</app-element>
 
 <template id="app-element-template">
     <slot name="header-bar"></slot>
